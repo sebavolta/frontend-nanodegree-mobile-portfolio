@@ -7,6 +7,37 @@
     <meta name="author" content=" FILL ME IN ">
     <title>Cameron Pittman: Portfolio</title>
 
+
+     <script>
+      (function(w,g){w['GoogleAnalyticsObject']=g;
+      w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
+
+      // TODO: replace with your Google Analytics profile ID.
+      ga('create', 'UA-XXXX-Y');
+      ga('send', 'pageview');
+    </script>
+
+
+    <script type="text/javascript">
+    	// Measuring the Critical Rendering Path with Navigation Timing
+			// https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp
+
+			function logCRP() {
+			  var t = window.performance.timing,
+			    dcl = t.domContentLoadedEventStart - t.domLoading,
+			    complete = t.domComplete - t.domLoading;
+			  var stats = document.getElementById("crp-stats");
+			  stats.textContent = 'DCL: ' + dcl + 'ms, onload: ' + complete + 'ms';
+			}
+
+			window.addEventListener("load", function(event) {
+			  logCRP();
+			});
+    </script>
+
+    <script async src="http://www.google-analytics.com/analytics.js"></script>
+
+
     <!-- Hmm, what is the impact of web fonts on speed? Measure it... -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 
@@ -26,31 +57,8 @@
 			}
     </style>
 
-    <script>
-      (function(w,g){w['GoogleAnalyticsObject']=g;
-      w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
-
-      // TODO: replace with your Google Analytics profile ID.
-      ga('create', 'UA-XXXX-Y');
-      ga('send', 'pageview');
-    </script>
-    <script async src="http://www.google-analytics.com/analytics.js"></script>
-    <script type="text/javascript">
-    	// Measuring the Critical Rendering Path with Navigation Timing
-			// https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp
-
-			function logCRP() {
-			  var t = window.performance.timing,
-			    dcl = t.domContentLoadedEventStart - t.domLoading,
-			    complete = t.domComplete - t.domLoading;
-			  var stats = document.getElementById("crp-stats");
-			  stats.textContent = 'DCL: ' + dcl + 'ms, onload: ' + complete + 'ms';
-			}
-
-			window.addEventListener("load", function(event) {
-			  logCRP();
-			});
-    </script>
+   
+    
   </head>
 
   <body>
