@@ -25,7 +25,8 @@ var pizzaResizeItems = [];
 //Adding global items var  to be available in scolling functions
 var items = [];
 
-
+//sets the 'animate' var to false so the updatePositionsRequest can start
+var animate = false;
 
 // As you may have realized, this website randomly generates pizzas.
 // Here are arrays of all possible pizza ingredients.
@@ -407,7 +408,8 @@ var pizzaElementGenerator = function(i) {
   pizzaDescriptionContainer.appendChild(ul);
   pizzaContainer.appendChild(pizzaDescriptionContainer);
 
-  pizzaResizeItems = document.querySelectorAll(".pizza-resize");
+  pizzaResizeItems = document.getElementsByClassName("pizza-resize");
+  pizzaResizeItemsLength = pizzaResizeItems.length;
   return pizzaContainer;
 };
 
@@ -446,9 +448,8 @@ function updatePositions() {
 
   //Calculates the scrollTop and saves it in the 'top' var
   var top = document.body.scrollTop / 1250;
-  for (var i = 0; i < window.items.length; i++) {
-    var phase = top + (i % 5);
-    phase = Math.sin(top + (i % 5));
+  for (var i = 0; i < items.length; i++) {
+    var phase = Math.sin(top + (i % 5));
     
     //Iterates and sets the phase in the 'transform' rule to affect composite only
     items[i].style.transform = 'translate3d('+(items[i].basicLeft + phase * 100) + 'px,0,-'+i+'px)';
@@ -476,18 +477,15 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.transform = 'translate3d('+(i % cols) * s + 'px'+',0,0)';
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    document.getElementById("movingPizzas1").appendChild(elem);
   }
 
   //Save all the elements as a global var
-  items = document.querySelectorAll('.mover');
+  items = document.getElementsByClassName('mover');
 });
 
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositionsRequest);
-
-//sets the 'animate' var to false so the updatePositionsRequest can start
-var animate = false;
 
 /*Calls the requestAnimationFrame before calling the updatePosition
 so the code runs at the same time as the screen refresh */
@@ -508,11 +506,11 @@ function animationSize(sizex) {
 function sizeSwitcher (size) {
   switch(size) {
     case "1":
-      return 0.25;
+      return 'scale(0.25)';
     case "2":
-      return 1;
+      return 'scale(1)';
     case "3":
-      return 1.5;
+      return 'scale(1.5)';
     default:
       console.log("bug in sizeSwitcher");
   }
@@ -521,9 +519,9 @@ function sizeSwitcher (size) {
 // Iterates through pizza elements on the page and changes their scale
 function changePizzaSizes() {
   window.performance.mark("mark_start_resize");
+  var newScale = sizeSwitcher(size);
   for (var i = 0; i < pizzaResizeItems.length; i++) {
-    var newScale = sizeSwitcher(size);
-    pizzaResizeItems[i].style.transform = 'scale('+newScale+')';
+    pizzaResizeItems[i].style.transform = newScale;
   }
   window.performance.mark("mark_end_resize");
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
