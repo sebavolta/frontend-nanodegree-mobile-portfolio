@@ -45,7 +45,7 @@ form {
 }
 
 #movingPizzas1 {
-    transform: translate3d(0,0,-1px);
+    transform: translate3d(0,0,-10px);
     position: fixed;
     z-index: -1;
     left: 0;
@@ -59,6 +59,7 @@ form {
   float: left;
   width: 33%;
   height: 325px;
+  transform: translate3d(0,0,-10px);
 }
 
 .randomPizzaContainer:after {
