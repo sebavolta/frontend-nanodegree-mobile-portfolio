@@ -10,8 +10,11 @@ the class 'pizza-resize' to the images.
 	- Removed display rule.
 - in js/main.js I removed the inline width of the pizza images container
 and added the class 'pizza-resize' to each image.
+- I compressed the pizza.png image.
 
 #Resize optimizations:
+- I added a global 'pizzaResizeItems' var to store all the pizzas items and 
+be available in resizing functions.
 - I generated the function 'animationSize' that calls the 'requestAnimationFrame'
 before calling the 'changePizzaSizes', to be sure the change will apply during
 the refreshing of the browser.
@@ -23,6 +26,8 @@ depending on the slider, and finally it applies a 'Transform' to scale all
 the images.
 
 #Scrolling optimizations:
+- I addied a global 'items' var to save the .mover items and be available 
+in scolling functions
 - I reduced the amount of elements because a lot of them are out of the screen.
 - I removed the basic styles from the  '.mover' elements and set them into
 the class on the css file.
