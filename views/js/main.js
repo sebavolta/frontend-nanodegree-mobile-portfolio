@@ -19,6 +19,14 @@ cameron *at* udacity *dot* com
 //Adding global size var  to be available in resizing functions
 var size;
 
+//Adding global pizzaResizeItems var to be available in resizing functions
+var pizzaResizeItems = [];
+
+//Adding global items var  to be available in scolling functions
+var items = [];
+
+
+
 // As you may have realized, this website randomly generates pizzas.
 // Here are arrays of all possible pizza ingredients.
 var pizzaIngredients = {};
@@ -399,6 +407,7 @@ var pizzaElementGenerator = function(i) {
   pizzaDescriptionContainer.appendChild(ul);
   pizzaContainer.appendChild(pizzaDescriptionContainer);
 
+  pizzaResizeItems = document.querySelectorAll(".pizza-resize");
   return pizzaContainer;
 };
 
@@ -442,7 +451,7 @@ function updatePositions() {
     phase = Math.sin(top + (i % 5));
     
     //Iterates and sets the phase in the 'transform' rule to affect composite only
-    window.items[i].style.transform = 'translate3d('+(items[i].basicLeft + phase * 100) + 'px,0,-'+i+'px)';
+    items[i].style.transform = 'translate3d('+(items[i].basicLeft + phase * 100) + 'px,0,-'+i+'px)';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -471,7 +480,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   //Save all the elements as a global var
-  window.items = document.querySelectorAll('.mover');
+  items = document.querySelectorAll('.mover');
 });
 
 // runs updatePositions on scroll
@@ -512,9 +521,9 @@ function sizeSwitcher (size) {
 // Iterates through pizza elements on the page and changes their scale
 function changePizzaSizes() {
   window.performance.mark("mark_start_resize");
-  for (var i = 0; i < document.querySelectorAll(".pizza-resize").length; i++) {
+  for (var i = 0; i < pizzaResizeItems.length; i++) {
     var newScale = sizeSwitcher(size);
-    document.querySelectorAll(".pizza-resize")[i].style.transform = 'scale('+newScale+')';
+    pizzaResizeItems[i].style.transform = 'scale('+newScale+')';
   }
   window.performance.mark("mark_end_resize");
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
