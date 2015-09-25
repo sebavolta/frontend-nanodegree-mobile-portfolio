@@ -430,18 +430,19 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
-// The following code for sliding background pizzas was pulled from Ilya's demo found at:
-// https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
-
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  //var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    window.items[i].style.transform = 'translate3d(' + (100 * phase[i%5]) + 'px,0,0)';
+  //Calculates the scrollTop and saves it in the 'top' var
+  var top = document.body.scrollTop / 1250;
+  for (var i = 0; i < window.items.length; i++) {
+    var phase = top + (i % 5);
+    phase = Math.sin(top + (i % 5));
+    
+    //Iterates and sets the phase in the 'transform' rule to affect composite only
+    window.items[i].style.transform = 'translate3d('+(items[i].basicLeft + phase * 100) + 'px,0,-'+i+'px)';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -452,39 +453,41 @@ function updatePositions() {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
   }
-}
 
-// runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+  animate = false;
+}
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
-    var elem = document.createElement('img');
+  for (var i = 0; i < 30; i++) {
+    var elem = document.createElement('div');
     elem.className = 'mover';
-    elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
+    elem.style.transform = 'translate3d('+(i % cols) * s + 'px'+',0,0)';
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  window.items = document.getElementsByClassName('mover');
-  updatePositions();
+
+  //Save all the elements as a global var
+  window.items = document.querySelectorAll('.mover');
 });
 
+// runs updatePositions on scroll
+window.addEventListener('scroll', updatePositionsRequest);
 
-//window.addEventListener('scroll', animationReadyCheck);
+//sets the 'animate' var to false so the updatePositionsRequest can start
+var animate = false;
 
-
-/*function animationReadyCheck() {
-  if (!window.animating) {
-    window.requestAnimationFrame(updatePositions);
-    window.animating = true;
-  }
-}*/
+/*Calls the requestAnimationFrame before calling the updatePosition
+so the code runs at the same time as the screen refresh */
+function updatePositionsRequest() {
+    if(!animate){
+      window.requestAnimationFrame(updatePositions);
+      animate = true;
+    }
+}
 
 //Calling animation frame before calling changePizzaSizes
 function animationSize(sizex) {

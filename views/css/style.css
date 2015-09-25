@@ -15,6 +15,8 @@ body {
 input {
   background: grey;
   font-size: 18px;
+  position: relative;
+  z-index: 5;
 }
 
 form {
@@ -33,6 +35,24 @@ form {
   position: fixed;
   width: 256px;
   z-index: -1;
+  top:0;
+  left:0;
+  background: url(../images/pizza.png);
+  width: 73px;
+  height: 100px;
+  background-size: 100%;
+  transform: translate3d(0,0,-1px);
+}
+
+#movingPizzas1 {
+    transform: translate3d(0,0,-1px);
+    position: fixed;
+    z-index: -1;
+    left: 0;
+}
+
+#pizzaGenerator {
+   transform: translate3d(0,0,1px);
 }
 
 .randomPizzaContainer {
