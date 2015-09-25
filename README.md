@@ -10,7 +10,12 @@ the class 'pizza-resize' to the images.
 	- Removed display rule.
 - in js/main.js I removed the inline width of the pizza images container
 and added the class 'pizza-resize' to each image.
-- I compressed the pizza.png image.
+- I changed the document.querySelectors.. to 'getElementsByClassName' and 'getElementById'
+so the cost for searching on elements is reduced.
+- I compressed the files:
+	- pizza.png
+	- main.js
+	- style & bootstrap CSS and Converted them to Less
 
 #Resize optimizations:
 - I added a global 'pizzaResizeItems' var to store all the pizzas items and 
